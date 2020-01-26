@@ -5,7 +5,7 @@ ListView can be drop-down refreshing and slide-up loading, support refresh &amp;
 ## Gradle
 ```
 dependencies {
-	        implementation 'com.github.a1573595:RefreshListView:Tag'
+	        implementation 'com.github.a1573595:RefreshListView:1.0.1'
 }
 ```
 
@@ -18,12 +18,13 @@ dependencies {
 ```
 
 ```
+refreshListView.setResetTime(3000L);
 refreshListView.setRefreshEnable(false);
 refreshListView.setLoadMoreEnable(false);
 refreshListView.setUpdateListener(this);
 refreshListView.setFailedListener(this);
-refreshListView.setResetTime(3000L);
+
 refreshListView.setListViewPadding(0, 0, 0, 24);
         
-refreshListView.getListView().setAdapter(arrayAdapter);
+refreshListView.setAdapter(arrayAdapter);
 ```
