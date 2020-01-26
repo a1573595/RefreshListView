@@ -3,10 +3,6 @@ package com.a1573595.sample;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -30,18 +26,18 @@ public class MainActivity extends AppCompatActivity implements RefreshListView.O
         setContentView(R.layout.activity_main);
 
         refreshListView = findViewById(R.id.refreshListView);
+        refreshListView.setResetTime(3000L);
 //        refreshListView.setRefreshEnable(false);
 //        refreshListView.setLoadMoreEnable(false);
         refreshListView.setUpdateListener(this);
         refreshListView.setFailedListener(this);
-        refreshListView.setResetTime(3000L);
         refreshListView.setListViewPadding(0, 0, 0, 24);
 
         for(int i = 0; i < 20; i++) {
             item.add("Item" + i);
         }
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, item);
-        refreshListView.getListView().setAdapter(arrayAdapter);
+        refreshListView.setAdapter(arrayAdapter);
     }
 
     @Override

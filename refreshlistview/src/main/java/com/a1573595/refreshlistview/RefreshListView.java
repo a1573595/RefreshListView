@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Scroller;
 
@@ -95,6 +96,7 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
 
         footer = new Footer(getContext());
         listView.addFooterView(footer);
+        listView.setFooterDividersEnabled(false);
 
         this.addView(root);
 
@@ -125,8 +127,9 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
     private void startRefresh(){
         stopLoadMore();
 
-        if(updateListener != null)
+        if(updateListener != null) {
             updateListener.onRefresh();
+        }
 
         if(REST_TIME > 0) {
             failedHandler.postDelayed(stopRefreshRunnable, REST_TIME);
@@ -140,8 +143,9 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
 
         footer.setState(STATE_LOADING);
 
-        if(updateListener != null)
+        if(updateListener != null) {
             updateListener.onLoadMore();
+        }
 
         if(REST_TIME > 0) {
             failedHandler.postDelayed(stopLoadMoreRunnable, REST_TIME);
@@ -165,8 +169,12 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
         }
     }
 
-    public ListView getListView() {
-        return listView;
+//    public ListView getListView() {
+//        return listView;
+//    }
+
+    public void setAdapter(ListAdapter adapter) {
+        listView.setAdapter(adapter);
     }
 
     public void setListViewPadding(int start, int top, int end, int bottom) {
@@ -215,7 +223,7 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
                 float deltaY = ev.getRawY() - mLastY;
                 mLastY = ev.getRawY();
                 if (listView.getLastVisiblePosition() == mTotalItemCount - 1 &&
-                        (footer.getBottomMargin() > 0 || deltaY < 0) && enableLoadMore){
+                        (footer.getBottomMargin() > 0 || deltaY < 0) && enableLoadMore) {
                     // last item, already pulled up or want to pull up.
                     updateFooterHeight(-deltaY / OFFSET_RADIO);
                     if (!isLoading && !loadingLock){
@@ -238,7 +246,7 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
     private void updateFooterHeight(float delta) {
         int height = footer.getBottomMargin() +  Math.round(delta);
         if(enableLoadMore && !isLoading){
-            if (height > PULL_LOAD_MORE_DELTA){
+            if (height > PULL_LOAD_MORE_DELTA) {
                 footer.setState(STATE_READY);
             } else {
                 footer.setState(STATE_NORMAL);
