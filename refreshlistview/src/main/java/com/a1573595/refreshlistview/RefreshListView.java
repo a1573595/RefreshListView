@@ -20,9 +20,9 @@ import java.lang.annotation.RetentionPolicy;
 
 public class RefreshListView extends SwipeRefreshLayout implements AbsListView.OnScrollListener, View.OnTouchListener{
     // footer state
-    public static final int STATE_NORMAL = 0;
-    public static final int STATE_READY = 1;
-    public static final int STATE_LOADING = 2;
+    static final int STATE_NORMAL = 0;
+    static final int STATE_READY = 1;
+    static final int STATE_LOADING = 2;
 
     @IntDef({STATE_NORMAL, STATE_READY, STATE_LOADING})
     @Retention(RetentionPolicy.SOURCE)
@@ -39,7 +39,6 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
     private boolean enableLoadMore = true;  // enable load more
     private boolean isLoading = false;    // is loading
     private boolean loadingLock = false; // avoid resetFooter trigger loading twice
-
     private long REST_TIME = 10000; // reset countdown
 
     private View root;
@@ -93,15 +92,15 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
         root = View.inflate(getContext(), R.layout.listview, null);
 
         listView = root.findViewById(R.id.listView);
-        listView.setOnScrollListener(this);
-        listView.setOnTouchListener(this);
 
         footer = new Footer(getContext());
         listView.addFooterView(footer);
 
         this.addView(root);
 
-        setOnRefreshListener(() -> startRefresh());
+        setOnRefreshListener(this::startRefresh);
+        listView.setOnScrollListener(this);
+        listView.setOnTouchListener(this);
     }
 
     public void setResetTime(long milliseconds) {
