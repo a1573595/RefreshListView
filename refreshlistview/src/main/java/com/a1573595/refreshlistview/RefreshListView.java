@@ -1,6 +1,7 @@
 package com.a1573595.refreshlistview;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -127,12 +128,12 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
     private void startRefresh(){
         stopLoadMore();
 
-        if(updateListener != null) {
-            updateListener.onRefresh();
-        }
-
         if(REST_TIME > 0) {
             failedHandler.postDelayed(stopRefreshRunnable, REST_TIME);
+        }
+
+        if(updateListener != null) {
+            updateListener.onRefresh();
         }
     }
 
@@ -143,12 +144,12 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
 
         footer.setState(STATE_LOADING);
 
-        if(updateListener != null) {
-            updateListener.onLoadMore();
-        }
-
         if(REST_TIME > 0) {
             failedHandler.postDelayed(stopLoadMoreRunnable, REST_TIME);
+        }
+
+        if(updateListener != null) {
+            updateListener.onLoadMore();
         }
     }
 
@@ -169,19 +170,50 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
         }
     }
 
-//    public ListView getListView() {
-//        return listView;
+    public void setListViewPadding(int start, int top, int end, int bottom) {
+        int density = (int)getContext().getResources().getDisplayMetrics().density;
+
+        listView.setPaddingRelative(start * density, top * density,
+                end * density, bottom * density);
+    }
+
+    public void setHeaderDividersEnabled(boolean headerDividersEnabled) {
+        listView.setHeaderDividersEnabled(headerDividersEnabled);
+    }
+
+    public void setFooterDividersEnabled(boolean footerDividersEnabled) {
+        listView.setFooterDividersEnabled(footerDividersEnabled);
+    }
+
+    public void setDividerHeight(int height) {
+        listView.setDividerHeight(height);
+    }
+
+    public void setDivider(@Nullable Drawable divider) {
+        listView.setDivider(divider);
+    }
+
+    public void addHeaderView(View header) {
+        listView.addHeaderView(header);
+    }
+
+    public void removeHeaderView(View header) {
+        listView.removeHeaderView(header);
+    }
+
+//    public void addFooterView(Footer footer) {
+//        listView.removeFooterView(this.footer);
+//
+//        this.footer = footer;
+//        listView.addFooterView(footer);
 //    }
 
     public void setAdapter(ListAdapter adapter) {
         listView.setAdapter(adapter);
     }
 
-    public void setListViewPadding(int start, int top, int end, int bottom) {
-        int density = (int)getContext().getResources().getDisplayMetrics().density;
-
-        listView.setPaddingRelative(start * density, top * density,
-                end * density, bottom * density);
+    public void setSelection(int position) {
+        listView.setSelection(position);
     }
 
     public void setUpdateListener(OnUpdateListener updateListener) {

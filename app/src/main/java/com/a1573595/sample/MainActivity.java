@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements RefreshListView.O
 
         arrayAdapter.notifyDataSetChanged();
         refreshListView.stopRefresh();
+
+        refreshListView.setSelection(0);
     }
 
     @Override
