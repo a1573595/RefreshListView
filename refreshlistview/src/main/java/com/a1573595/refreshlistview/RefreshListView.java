@@ -1,6 +1,7 @@
 package com.a1573595.refreshlistview;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -214,6 +215,10 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
 
     public void setSelection(int position) {
         listView.setSelection(position);
+    }
+
+    public void setProgressBarColor(int color) {
+        footer.setIndeterminateTintList(ColorStateList.valueOf(color));
     }
 
     public void setUpdateListener(OnUpdateListener updateListener) {

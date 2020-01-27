@@ -2,6 +2,7 @@ package com.a1573595.sample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements RefreshListView.O
         refreshListView.setUpdateListener(this);
         refreshListView.setFailedListener(this);
         refreshListView.setListViewPadding(0, 0, 0, 24);
+        refreshListView.setProgressBarColor(Color.CYAN);
 
         for(int i = 0; i < 20; i++) {
             item.add("Item" + i);
