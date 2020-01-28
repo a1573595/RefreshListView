@@ -28,8 +28,6 @@ class Footer extends LinearLayout {
 
     private void init(){
         progressBar = view.findViewById(R.id.progressBar);
-        progressBar.setIndeterminateTintList(ColorStateList.valueOf(
-                getContext().getResources().getColor(R.color.colorAccent)));
 
         setVisibility(false);
         addView(view);
