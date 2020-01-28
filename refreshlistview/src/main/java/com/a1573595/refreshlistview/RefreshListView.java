@@ -49,7 +49,7 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
     private Footer footer;
 
     private OnUpdateListener updateListener = null;
-    private OnFailedListener onFailedListener = null;
+    private OnFailedListener failedListener = null;
 
     public interface OnUpdateListener {
         void onRefresh();
@@ -66,15 +66,17 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
     private Runnable stopRefreshRunnable = () -> {
         stopRefresh();
 
-        if(onFailedListener != null)
-            onFailedListener.onRefreshFailed();
+        if(failedListener != null) {
+            failedListener.onRefreshFailed();
+        }
     };
 
     private Runnable stopLoadMoreRunnable = () -> {
         stopLoadMore();
 
-        if(onFailedListener != null)
-            onFailedListener.onLoadMoreFailed();
+        if(failedListener != null) {
+            failedListener.onLoadMoreFailed();
+        }
     };
 
     public RefreshListView(@NonNull Context context) {
@@ -102,9 +104,15 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
 
         this.addView(root);
 
-        setOnRefreshListener(this::startRefresh);
+        super.setOnRefreshListener(this::startRefresh);
         listView.setOnScrollListener(this);
         listView.setOnTouchListener(this);
+    }
+
+    @Override
+    public void setOnRefreshListener(@Nullable OnRefreshListener listener) {
+        throw new IllegalArgumentException("setOnRefreshListener is not supported, " +
+                "please use setOnUpdateListener or setOnFailedListener.");
     }
 
     public void setResetTime(long milliseconds) {
@@ -209,7 +217,7 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
 //        listView.addFooterView(footer);
 //    }
 
-    public void setAdapter(ListAdapter adapter) {
+    public void setAdapter(@NonNull ListAdapter adapter) {
         listView.setAdapter(adapter);
     }
 
@@ -221,12 +229,12 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
         footer.setIndeterminateTintList(ColorStateList.valueOf(color));
     }
 
-    public void setUpdateListener(OnUpdateListener updateListener) {
+    public void setOnUpdateListener(@Nullable OnUpdateListener updateListener) {
         this.updateListener = updateListener;
     }
 
-    public void setFailedListener(OnFailedListener onFailedListener) {
-        this.onFailedListener = onFailedListener;
+    public void setOnFailedListener(@Nullable OnFailedListener failedListener) {
+        this.failedListener = failedListener;
     }
 
     @Override

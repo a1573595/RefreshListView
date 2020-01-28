@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity implements RefreshListView.O
         refreshListView.setResetTime(3000L);
 //        refreshListView.setRefreshEnable(false);
 //        refreshListView.setLoadMoreEnable(false);
-        refreshListView.setUpdateListener(this);
-        refreshListView.setFailedListener(this);
+        refreshListView.setOnUpdateListener(this);
+        refreshListView.setOnFailedListener(this);
         refreshListView.setListViewPadding(0, 0, 0, 24);
         refreshListView.setProgressBarColor(Color.CYAN);
 
