@@ -5,8 +5,17 @@ ListView can be drop-down refreshing and slide-up loading, support refresh &amp;
 
 ## Gradle
 ```
+android {
+    ...
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
 dependencies {
-	        implementation 'com.github.a1573595:RefreshListView:1.0.2'
+    implementation 'com.github.a1573595:RefreshListView:1.1.0'
 }
 ```
 
