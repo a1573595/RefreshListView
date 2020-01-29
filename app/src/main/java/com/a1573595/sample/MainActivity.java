@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.a1573595.refreshlistview.RefreshFooter;
 import com.a1573595.refreshlistview.RefreshListView;
 
 import java.util.ArrayList;
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements RefreshListView.O
         refreshListView.setOnUpdateListener(this);
         refreshListView.setOnFailedListener(this);
         refreshListView.setListViewPadding(0, 0, 0, 24);
-        refreshListView.setProgressBarColor(Color.CYAN);
+
+        ((RefreshFooter)(refreshListView.getFooterView())).setIndeterminateTintList(Color.CYAN);
 
         for(int i = 0; i < 20; i++) {
             item.add("Item" + i);

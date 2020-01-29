@@ -1,53 +1,24 @@
 package com.a1573595.refreshlistview;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 
-import static com.a1573595.refreshlistview.RefreshListView.STATE_LOADING;
-
-class Footer extends LinearLayout {
-    private View view = View.inflate(getContext(), R.layout.footer, null);
-
-    private ProgressBar progressBar;
+public abstract class Footer extends LinearLayout{
+    protected View view;
 
     public Footer(Context context) {
         super(context);
-        init();
     }
 
     public Footer(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
-    private void init(){
-        progressBar = view.findViewById(R.id.progressBar);
-
-        setVisibility(false);
-        addView(view);
-    }
-
-    private void setVisibility(boolean visibility){
-        view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-                visibility? LayoutParams.WRAP_CONTENT : 0));
-    }
-
-    void setState(@RefreshListView.ListViewState int state){
-        switch (state){
-            case STATE_LOADING:
-                setVisibility(true);
-                break;
-            default:
-                setVisibility(false);
-                break;
-        }
-    }
+    protected abstract void setState(@RefreshListView.ListViewState int state);
 
     void setBottomMargin(int height){
         LayoutParams lp = (LayoutParams)view.getLayoutParams();
@@ -58,9 +29,5 @@ class Footer extends LinearLayout {
     int getBottomMargin(){
         LayoutParams lp = (LayoutParams)view.getLayoutParams();
         return lp.bottomMargin;
-    }
-
-    void setIndeterminateTintList(ColorStateList tint) {
-        progressBar.setIndeterminateTintList(tint);
     }
 }
