@@ -190,16 +190,33 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
         listView.setHeaderDividersEnabled(headerDividersEnabled);
     }
 
+    public boolean areHeaderDividersEnabled() {
+        return listView.areHeaderDividersEnabled();
+    }
+
     public void setFooterDividersEnabled(boolean footerDividersEnabled) {
         listView.setFooterDividersEnabled(footerDividersEnabled);
+    }
+
+    public boolean areFooterDividersEnabled() {
+        return listView.areFooterDividersEnabled();
+    }
+
+    public void setDivider(@Nullable Drawable divider) {
+        listView.setDivider(divider);
+    }
+
+    @Nullable
+    public Drawable getDivider() {
+        return listView.getDivider();
     }
 
     public void setDividerHeight(int height) {
         listView.setDividerHeight(height);
     }
 
-    public void setDivider(@Nullable Drawable divider) {
-        listView.setDivider(divider);
+    public int getDividerHeight() {
+        return listView.getDividerHeight();
     }
 
     public void addHeaderView(View header) {
@@ -219,6 +236,11 @@ public class RefreshListView extends SwipeRefreshLayout implements AbsListView.O
 
     public void setAdapter(@NonNull ListAdapter adapter) {
         listView.setAdapter(adapter);
+    }
+
+    @Nullable
+    public ListAdapter getAdapter() {
+        return listView.getAdapter();
     }
 
     public void setSelection(int position) {
